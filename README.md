@@ -10,7 +10,7 @@ Personal portfolio site. A single static page: plain HTML, CSS and a little Java
 portfolio/
 ├── index.html      # the whole site: markup, styles and scripts
 ├── photos/         # images for the "Wanna know more about me?" button (resized, metadata stripped)
-├── cv.pdf          # (add it) shown by the "View CV" viewer
+├── cv.pdf          # public CV shown by the "View CV" viewer (no phone number)
 ├── .nojekyll       # tells GitHub Pages to serve files as-is
 └── README.md
 ```
@@ -35,7 +35,7 @@ Everything lives in `index.html`:
 | Projects | `<!-- ─── Projects ─── -->` section, one `<article class="proj">` per project |
 | Tech stack and skill levels | `STACK` array in the script (`3` = daily / production, `2` = proficient, `1` = working knowledge) |
 | Photos and captions | `PHOTOS` array in the script; image files go in `photos/` |
-| CV | drop a `cv.pdf` next to `index.html`. Until then, the viewer shows a "coming soon" note |
+| CV | `cv.pdf` (public copy without phone number). If it's missing, the viewer shows a "coming soon" note |
 
 ## Deploy (GitHub Pages)
 
@@ -53,3 +53,13 @@ Everything lives in `index.html`:
 4. After a minute the site is live at https://marcofer14.github.io. Every push to `main` redeploys it.
 
 Alternatives: drag the folder into Netlify Drop, or import the repo in Vercel or Cloudflare Pages. No build settings are needed; the output directory is the repo root.
+
+## Analytics
+
+[GoatCounter](https://www.goatcounter.com) counts visits without cookies: pages, referrers (LinkedIn, GitHub…), countries, browsers and screen sizes. It does not identify individual visitors.
+
+1. Create a free account at goatcounter.com with the code `marcofer14`. If you choose another code, update the `data-goatcounter` URL at the end of `index.html`.
+2. The dashboard lives at https://marcofer14.goatcounter.com.
+3. The portfolio link in the CV PDFs points to `https://marcofer14.github.io/?ref=cv`, so visits coming from the CV show up with `cv` as the referrer.
+
+Visits from `localhost` are not counted.
