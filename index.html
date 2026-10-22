@@ -35,6 +35,7 @@
   --iberia:#c8742a; --iberia-soft:#f7ead9;
   --uni:#2f7d5b;    --uni-soft:#e2f0e8;
   --truco:#7a4bd6;  --truco-soft:#ece5fa;
+  --route:#0e7490;  --route-soft:#dff1f4;
 
   --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
   --sans:"Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -222,7 +223,24 @@ a{color:inherit}
 .stat span{font-size:11.5px;color:var(--muted)}
 @container (max-width:460px){ .stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
 
-/* 03 · UniversityWork */
+/* 02 · Neural last-mile routing */
+.p-route{--hue:var(--route);border-color:#bfe0e6}
+.p-route::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background-image:radial-gradient(circle,rgba(14,116,144,.16) 1.2px,transparent 1.6px);
+  background-size:16px 16px;
+  -webkit-mask-image:linear-gradient(200deg,#000 0%,transparent 45%);mask-image:linear-gradient(200deg,#000 0%,transparent 45%);
+}
+.race{margin:0;padding:12px;border-radius:12px;background:var(--paper);border:1px solid var(--rule)}
+.race svg{width:100%;height:auto;display:block}
+.race figcaption{font-size:10.5px;color:var(--muted);margin-top:6px;text-align:right}
+.race .curve{stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1.8s var(--ease) .15s}
+.race .curve.ours{transition-delay:.5s}
+.in .race .curve{stroke-dashoffset:0}
+.race .dots circle{opacity:0;transition:opacity .4s 1.6s}
+.in .race .dots circle{opacity:1}
+
+/* 04 · UniversityWork */
 .p-uni{--hue:var(--uni);border-color:#c9e0d3}
 .p-uni::before{
   content:"";position:absolute;inset:0;z-index:0;
@@ -238,7 +256,7 @@ a{color:inherit}
 .tree{font-family:var(--mono);font-size:11.5px;line-height:1.75;margin:12px 0 0;padding:10px 12px;background:rgba(255,255,255,.75);border:1px solid #c9e0d3;border-radius:8px;color:var(--ink-2);white-space:pre;overflow-x:auto}
 .tree .d{color:var(--uni);font-weight:500}
 
-/* 04 · Truco Stats */
+/* 05 · Truco Stats */
 .p-truco{--hue:var(--truco);border-color:#d9cdf3}
 .board{border:1px solid var(--rule);border-radius:12px;background:var(--paper);overflow:hidden;margin:14px 0 2px;font-size:12.5px}
 .board-row{display:grid;grid-template-columns:22px 1fr auto 56px;align-items:center;gap:10px;padding:8px 12px}
@@ -498,11 +516,72 @@ a{color:inherit}
           </div>
         </article>
 
-        <!-- 02 · Ruta Ibérica -->
-        <article class="proj p-ruta wide reveal">
+        <!-- 02 · Neural last-mile routing -->
+        <article class="proj p-route wide reveal">
           <span class="bignum" aria-hidden="true">02</span>
           <div class="proj-in">
-            <div class="proj-top"><span class="idx">02 / NLP · LLM agents</span><span class="badge">LangChain</span></div>
+            <div class="proj-top"><span class="idx">02 / Deep RL · Combinatorial optimisation</span><span class="badge">Live demo</span></div>
+            <h3>Neural last-mile <i>routing</i></h3>
+            <div class="split">
+              <div>
+                <p>
+                  A Transformer trained with reinforcement learning plans delivery routes on real Amazon data, and is
+                  benchmarked against the real drivers, Google OR-Tools and PyVRP on 200 routes it never saw.
+                </p>
+                <ul class="notes">
+                  <li>Attention biased by real one-way travel times; POMO multi-start trained with REINFORCE</li>
+                  <li>Neural first answer in half a second, then local search until the time budget runs out</li>
+                  <li>Whole station-days: capacity-aware clustering per van, each van routed by the network</li>
+                  <li>Interactive map demo (React + MapLibre) on GitHub Pages, FastAPI backend, tests and CI</li>
+                </ul>
+              </div>
+              <figure class="race" aria-label="Extra driving above the best route against computing time">
+                <svg viewBox="0 0 320 170" role="img" aria-label="With equal computing time our model is closer to the best route than PyVRP and far ahead of OR-Tools; real drivers are 22.5 % above it">
+                  <line x1="34" y1="140" x2="304" y2="140" stroke="#15171c" stroke-width="1"/>
+                  <line x1="34" y1="18" x2="34" y2="140" stroke="#15171c" stroke-width="1"/>
+                  <g font-family="JetBrains Mono, monospace" font-size="9" fill="#76746d">
+                    <text x="52" y="154" text-anchor="middle">0.5s</text><text x="107" y="154" text-anchor="middle">1s</text>
+                    <text x="162" y="154" text-anchor="middle">2s</text><text x="290" y="154" text-anchor="middle">10s</text>
+                    <text x="30" y="143" text-anchor="end">0%</text><text x="30" y="80" text-anchor="end">7%</text>
+                    <text x="40" y="14">% above best route ↓ better</text>
+                    <text x="304" y="30" text-anchor="end">Real drivers: 22.5% ↑</text>
+                  </g>
+                  <path class="curve" d="M52 26 L107 61 L162 71 L290 94" fill="none" stroke="#9b988f" stroke-width="1.8"/>
+                  <path class="curve" d="M52 119 L107 126 L162 129 L290 134" fill="none" stroke="#15171c" stroke-width="1.8"/>
+                  <path class="curve ours" d="M62 117 L107 130 L162 133" fill="none" stroke="#0e7490" stroke-width="2.6"/>
+                  <g class="dots" fill="#0e7490"><circle cx="62" cy="117" r="3.2"/><circle cx="107" cy="130" r="3.2"/><circle cx="162" cy="133" r="3.2"/></g>
+                  <g font-family="Inter Tight, sans-serif" font-size="10">
+                    <text x="232" y="106" fill="#76746d">OR-Tools</text>
+                    <text x="252" y="122" fill="#15171c">PyVRP</text>
+                    <text x="122" y="118" fill="#0e7490" font-weight="600">our model</text>
+                  </g>
+                </svg>
+                <figcaption class="mono">Same computing time, 200 unseen routes</figcaption>
+              </figure>
+            </div>
+            <div class="stats">
+              <div class="stat"><b>−10.5%</b><span>driving vs real drivers</span></div>
+              <div class="stat"><b>122/200</b><span>routes better than PyVRP, same time</span></div>
+              <div class="stat"><b>−9.9%</b><span>fleet hours per station-day</span></div>
+              <div class="stat"><b>0.5 s</b><span>first answer, ~150 stops</span></div>
+            </div>
+            <div class="chips">
+              <span class="chip">PyTorch</span><span class="chip">Transformers</span><span class="chip">REINFORCE · POMO</span>
+              <span class="chip">OR-Tools</span><span class="chip">PyVRP</span><span class="chip">numba</span>
+              <span class="chip">FastAPI</span><span class="chip">React</span><span class="chip">MapLibre</span>
+            </div>
+            <div class="proj-links">
+              <a href="https://marcofer14.github.io/GraphProject/" target="_blank" rel="noopener">Open the live demo ↗</a>
+              <a href="https://github.com/Marcofer14/GraphProject" target="_blank" rel="noopener">View on GitHub ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 · Ruta Ibérica -->
+        <article class="proj p-ruta wide reveal">
+          <span class="bignum" aria-hidden="true">03</span>
+          <div class="proj-in">
+            <div class="proj-top"><span class="idx">03 / NLP · LLM agents</span><span class="badge">LangChain</span></div>
             <h3>Ruta Ibérica — <i>AI travel advisor</i></h3>
             <div class="split">
               <div>
@@ -550,11 +629,11 @@ a{color:inherit}
           </div>
         </article>
 
-        <!-- 03 · UniversityWork -->
+        <!-- 04 · UniversityWork -->
         <article class="proj p-uni reveal">
-          <span class="bignum" aria-hidden="true">03</span>
+          <span class="bignum" aria-hidden="true">04</span>
           <div class="proj-in">
-            <div class="proj-top"><span class="idx">03 / Numerical methods</span><span class="badge">Academic</span></div>
+            <div class="proj-top"><span class="idx">04 / Numerical methods</span><span class="badge">Academic</span></div>
             <h3>University <i>work</i></h3>
             <p>
               Selected projects from the B.Sc. in Data Science — numerical methods and mathematical modeling, mostly in
@@ -576,12 +655,12 @@ a{color:inherit}
           </div>
         </article>
 
-        <!-- 04 · Truco Stats -->
+        <!-- 05 · Truco Stats -->
         <article class="proj p-truco reveal">
           <span class="suits" aria-hidden="true">♠ ♣ ♦ ♥</span>
-          <span class="bignum" aria-hidden="true">04</span>
+          <span class="bignum" aria-hidden="true">05</span>
           <div class="proj-in">
-            <div class="proj-top"><span class="idx">04 / Full-stack</span><span class="badge">In production</span></div>
+            <div class="proj-top"><span class="idx">05 / Full-stack</span><span class="badge">In production</span></div>
             <h3>Truco <i>Stats</i></h3>
             <p>
               A stats platform for my card-game group — ELO rankings, head-to-head records and streaks — running in
