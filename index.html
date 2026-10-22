@@ -264,6 +264,8 @@ a{color:inherit}
   .route-anim .r-driver{opacity:.22}
   .lg{opacity:1;animation:none!important}
 }
+.hw-note{margin:14px 0 0!important;padding:12px 14px;border-radius:12px;background:var(--route-soft);border:1px solid #bfe0e6;font-size:14px;line-height:1.5}
+.hw-note b{color:var(--route);font-weight:600}
 .tech{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule)}
 .tech-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:baseline;margin-top:8px}
 .tech-row .chips{margin-top:0}
@@ -529,6 +531,11 @@ a{color:inherit}
               <div class="stat"><b>0.5 s</b><span>to plan a 150-stop route</span></div>
               <div class="stat"><b>−9.9%</b><span>fleet hours on whole station-days</span></div>
             </div>
+            <p class="hw-note">
+              <b>Efficient enough for old hardware.</b> All of it, training included, ran on a GTX 1660 Super: a
+              mid-range gaming card from 2019 that is close to obsolete by today's standards. On it, planning a
+              150-stop route takes half a second, and a whole station-day with several vans about two seconds.
+            </p>
             <div class="tech">
               <span class="eyebrow">Built with</span>
               <div class="tech-row"><span class="tech-h">Machine learning</span><div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">CUDA (GPU training)</span><span class="chip">Transformer / attention</span><span class="chip">Deep reinforcement learning</span><span class="chip">REINFORCE · POMO</span><span class="chip">Hydra</span><span class="chip">TensorBoard</span></div></div>
